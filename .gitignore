@@ -3,3 +3,10 @@ checkpoints/
 logs/
 models/
 *.pyc
+# Written next to the notebooks when they run locally (1-random.mp4 is tracked upstream and gets overwritten)
+*.zip
+2-training.mp4
+2-testing.mp4
+3-testing.mp4
+wandb/*
+!wandb/run-20231011_201648-q219vpnp/
