@@ -2,6 +2,8 @@
 
 A collection of Jupyter Notebook scripts used to demonstrate reinforcement learning (RL). Open each notebook (either locally or with Google Colab) and execute each of the cells. Note that if you are executing locally, you will need to install [PyTorch](https://pytorch.org/get-started/locally/).
 
+> **Branch `rl-robotics-windows`:** these notebooks are set up for the `rl-robotics` conda environment of [workshop-reinforcement-learning-for-robotics](https://github.com/ramkumarkoppu/workshop-reinforcement-learning-for-robotics) (see its README, section "Native Installation (Windows, no Docker)"). Their pip-install cells are disabled and they select the **Python (RL)** kernel, so they are not meant to run on Colab from this branch; use upstream `main` for that. `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 and still needs internet access plus `wandb login`. The `sample-factory/` folder and `rl-demo-pendulum-sf.ipynb` are not part of this setup: Sample Factory has no Windows support and requires numpy < 2 and gymnasium < 1.
+
 To get started with RL, please watch the [following video](https://www.youtube.com/watch?v=3av8vozEczU):
 
 [![Introduction to Reinforcement Learning YouTube video](https://img.youtube.com/vi/3av8vozEczU/0.jpg)](https://www.youtube.com/watch?v=3av8vozEczU)
