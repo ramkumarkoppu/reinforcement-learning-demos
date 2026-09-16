@@ -2,7 +2,7 @@
 
 A collection of Jupyter Notebook scripts used to demonstrate reinforcement learning (RL). Open each notebook (either locally or with Google Colab) and execute each of the cells. Note that if you are executing locally, you will need to install [PyTorch](https://pytorch.org/get-started/locally/).
 
-> Running these notebooks locally on Windows instead of Colab? See [Running locally on Windows](#running-locally-on-windows) below. This branch does not run on Colab; use upstream `main` for that.
+> Running these notebooks locally on Windows instead of Colab? See [Running locally on Windows](#running-locally-on-windows) below. This fork's notebooks do not run on Colab; use the [upstream repository](https://github.com/ShawnHymel/reinforcement-learning-demos) for that.
 
 To get started with RL, please watch the [following video](https://www.youtube.com/watch?v=3av8vozEczU):
 
@@ -14,7 +14,7 @@ A discussion of the pendulum solution can be found here %%%LINK%%%.
 
 ## Running locally on Windows
 
-The notebooks on this branch (`rl-robotics-windows`) run in a native Windows conda environment instead of Colab: their `pip install` cells are disabled, they select the **Python (RL)** Jupyter kernel, and `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 (the removed `ax.utils.tutorials.cnn_utils` import is gone, and `create_experiment()` takes `objectives={...: ObjectiveProperties(minimize=False)}` instead of the removed `objective_name=` and `minimize=` keywords). For Colab, use upstream `main`.
+The notebooks in this fork run in a native Windows conda environment instead of Colab: their `pip install` cells are disabled, they select the **Python (RL)** Jupyter kernel, and `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 (the removed `ax.utils.tutorials.cnn_utils` import is gone, and `create_experiment()` takes `objectives={...: ObjectiveProperties(minimize=False)}` instead of the removed `objective_name=` and `minimize=` keywords). For Colab, use the upstream repository [ShawnHymel/reinforcement-learning-demos](https://github.com/ShawnHymel/reinforcement-learning-demos).
 
 The environment is the same `rl-robotics` environment that [workshop-reinforcement-learning-for-robotics](https://github.com/ramkumarkoppu/workshop-reinforcement-learning-for-robotics) uses, with identical package pins, so either repository's setup script can run first and each only adds what is missing. This repository's copy is self-contained.
 
