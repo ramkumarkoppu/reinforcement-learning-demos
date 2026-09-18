@@ -6,12 +6,13 @@ Run with the rl-robotics conda environment's Python, e.g.:
     conda activate rl-robotics
     python scripts/windows/verify-native.py
 
-Checks Python, PyTorch (CPU), gymnasium rendering through pygame-ce, OpenCV video writing,
-Stable-Baselines3, Weights & Biases (offline) and Ax. Exit code is 0 when every check passes,
-1 otherwise.
+Checks Python, PyTorch (CPU), gymnasium rendering through pygame-ce, the notebooks' inline frame
+display, Stable-Baselines3, Weights & Biases (offline) and Ax. Exit code is 0 when every check
+passes, 1 otherwise.
 """
 
 import importlib.metadata
+import io
 import logging
 import math
 import os
@@ -83,7 +84,7 @@ def check_gymnasium_render():
                              "'pip uninstall pygame' and then 'pip install --force-reinstall pygame-ce==2.5.8'")
     print(f"  gymnasium {gym.__version__}, pygame-ce {importlib.metadata.version('pygame-ce')}")
 
-    # The notebooks render off-screen (render_mode="rgb_array") and record the frames with OpenCV
+    # The notebooks render off-screen (render_mode="rgb_array") and show the frames in the notebook
     for env_id, shape in (("CartPole-v1", (400, 600, 3)), ("Pendulum-v1", (500, 500, 3))):
         env = gym.make(env_id, render_mode="rgb_array")
         env.reset(seed=0)
@@ -94,25 +95,26 @@ def check_gymnasium_render():
     print("  CartPole-v1 and Pendulum-v1 rendered off-screen through pygame")
 
 
-def check_opencv_video():
-    import cv2
+def check_inline_render():
+    """The notebooks caption each frame with Pillow and display it through IPython."""
     import numpy as np
-    print(f"  opencv {cv2.__version__}")
+    import PIL
+    from IPython.display import display
+    from PIL import Image, ImageDraw, ImageFont
+    print(f"  pillow {PIL.__version__}")
+
     frame = np.zeros((500, 500, 3), dtype=np.uint8)
-    cv2.putText(frame, "verify", (50, 250), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-    with tempfile.TemporaryDirectory() as d:
-        video = os.path.join(d, "demo.mp4")
-        writer = cv2.VideoWriter(video, cv2.VideoWriter.fourcc(*"mp4v"), 30, (500, 500))
-        for _ in range(5):
-            writer.write(frame)
-        writer.release()
-        cap = cv2.VideoCapture(video)
-        frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        ok, first = cap.read()
-        cap.release()
-        assert frames == 5 and ok, f"cv2.VideoWriter wrote {frames} frames, expected 5"
-        assert first.max() > 0, "decoded frame is blank"
-    print("  mp4v VideoWriter -> VideoCapture round trip: 5 frames, caption visible")
+    img = Image.fromarray(frame)
+    ImageDraw.Draw(img).text((10, 10), "verify", fill=(255, 255, 255), font=ImageFont.load_default(size=20))
+    assert np.array(img).max() > 0, "caption was not drawn onto the frame"
+
+    # display() is what puts the frame in the notebook; outside one it has no frontend to draw on,
+    # so check the PNG encoding it would send instead.
+    png = img._repr_png_()
+    assert png[:8] == b"\x89PNG\r\n\x1a\n", "frame did not encode as PNG"
+    assert Image.open(io.BytesIO(png)).size == (500, 500)
+    assert callable(display)
+    print(f"  captioned frame -> {len(png)} byte PNG for display() in the notebook")
 
 
 def check_sb3():
@@ -184,7 +186,7 @@ def main():
     check("Python version", check_python)
     check("PyTorch (CPU)", check_torch)
     check("gymnasium rendering (pygame-ce)", check_gymnasium_render)
-    check("OpenCV video", check_opencv_video)
+    check("Inline frame display (Pillow)", check_inline_render)
     check("Stable-Baselines3", check_sb3)
     check("Weights & Biases (offline)", check_wandb)
     check("Ax", check_ax)

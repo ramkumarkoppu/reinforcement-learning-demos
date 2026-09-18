@@ -14,13 +14,13 @@ A discussion of the pendulum solution can be found here %%%LINK%%%.
 
 ## Running locally on Windows
 
-The notebooks in this fork run in a native Windows conda environment instead of Colab: their `pip install` cells are disabled, they select the **Python (RL)** Jupyter kernel, and `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 (the removed `ax.utils.tutorials.cnn_utils` import is gone, and `create_experiment()` takes `objectives={...: ObjectiveProperties(minimize=False)}` instead of the removed `objective_name=` and `minimize=` keywords). For Colab, use the upstream repository [ShawnHymel/reinforcement-learning-demos](https://github.com/ShawnHymel/reinforcement-learning-demos).
+The notebooks in this fork run in a native Windows conda environment instead of Colab: their `pip install` cells are disabled, they select the **Python (RL)** Jupyter kernel, episodes play live in the notebook instead of being recorded to mp4 files with OpenCV, and `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 (the removed `ax.utils.tutorials.cnn_utils` import is gone, and `create_experiment()` takes `objectives={...: ObjectiveProperties(minimize=False)}` instead of the removed `objective_name=` and `minimize=` keywords). For Colab, use the upstream repository [ShawnHymel/reinforcement-learning-demos](https://github.com/ShawnHymel/reinforcement-learning-demos).
 
 The environment is the same `rl-robotics` environment that [workshop-reinforcement-learning-for-robotics](https://github.com/ramkumarkoppu/workshop-reinforcement-learning-for-robotics) uses, with identical package pins, so either repository's setup script can run first and each only adds what is missing. This repository's copy is self-contained.
 
 Prerequisites: [Anaconda](https://www.anaconda.com/download) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
-One-time setup, run from the root of this clone in PowerShell. It creates (or reuses) the `rl-robotics` environment with Python 3.12, PyTorch CPU, gymnasium 1.2.3, Stable-Baselines3 2.9, OpenCV 5, wandb 0.30, Ax 1.3.1 and JupyterLab, registers the `rl-robotics` Jupyter kernel (shown as **Python (RL)**) that the notebooks select, and verifies everything:
+One-time setup, run from the root of this clone in PowerShell. It creates (or reuses) the `rl-robotics` environment with Python 3.12, PyTorch CPU, gymnasium 1.2.3, Stable-Baselines3 2.9, wandb 0.30, Ax 1.3.1 and JupyterLab, registers the `rl-robotics` Jupyter kernel (shown as **Python (RL)**) that the notebooks select, and verifies everything:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\windows\setup-native.ps1
@@ -42,7 +42,7 @@ Notes:
  * `rl-demo-pendulum-ax-hpo.ipynb` reads each trial's results back from the Weights & Biases cloud (`wandb.Api()`), so it needs internet access and `wandb login`.
  * Training is CPU only; run the setup with `-Gpu` for the CUDA build of PyTorch. The networks here are small enough that the CPU is not the bottleneck.
  * `sample-factory/` and `rl-demo-pendulum-sf.ipynb` are not part of this setup. Sample Factory 2.1.1 requires numpy < 2 and gymnasium < 1, older releases need the unmaintained `gym` package, and the project has no Windows support. `sf-test-01.ipynb` also has a syntax error as checked in.
- * The notebooks write videos and model checkpoints next to themselves; those are git-ignored, except `1-random.mp4`, which upstream tracks and which gets overwritten (`git checkout -- 1-random.mp4` restores it).
+ * Episodes are shown in the notebook as they run: a single image updates in place while the printed log grows beneath it. Each rendered episode plays at about 30 frames per second, so watching every test slows a run down; set `RENDER_TESTS = False` in the training cell to train at full speed. Only model checkpoints are written next to the notebooks, and they are git-ignored.
 
 ## License
 

@@ -4,9 +4,9 @@
 
 .DESCRIPTION
     Creates the rl-robotics conda environment (Python 3.12), installs the CPU build of PyTorch plus
-    the pinned packages from requirements-native.txt (gymnasium, Stable-Baselines3, OpenCV, Weights
-    & Biases, Ax, JupyterLab), registers the Jupyter kernel "rl-robotics" (shown as "Python (RL)")
-    that the notebooks select, and runs verify-native.py.
+    the pinned packages from requirements-native.txt (gymnasium, Stable-Baselines3, pygame-ce,
+    Weights & Biases, Ax, JupyterLab), registers the Jupyter kernel "rl-robotics" (shown as
+    "Python (RL)") that the notebooks select, and runs verify-native.py.
 
     The environment is the same one that workshop-reinforcement-learning-for-robotics creates, with
     identical pins, so the two setup scripts can be run in either order: each only adds what is
@@ -115,7 +115,7 @@ Invoke-Step "Installing $TorchSpec from $TorchIndexUrl" {
     & $py -m pip install $TorchSpec --index-url $TorchIndexUrl
 }
 
-Invoke-Step "Installing gymnasium, Stable-Baselines3, OpenCV, W&B, Ax, JupyterLab (requirements-native.txt)" {
+Invoke-Step "Installing gymnasium, Stable-Baselines3, pygame-ce, W&B, Ax, JupyterLab (requirements-native.txt)" {
     & $py -m pip install -r (Join-Path $PSScriptRoot "requirements-native.txt")
 }
 
