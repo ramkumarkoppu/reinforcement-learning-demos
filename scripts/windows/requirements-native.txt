@@ -5,8 +5,7 @@
 # The notebooks originally pinned gymnasium 0.28.1, stable-baselines3 2.0/2.1, ax-platform 0.3.4
 # and wandb 0.15.12. None of those work on Python 3.12 with numpy 2 (the SB3 and wandb pins do not
 # install; ax-platform 0.3.4 installs but cannot be imported), so these are the newest versions that
-# do. They are the same pins as workshop-reinforcement-learning-for-robotics uses, so both
-# repositories share one conda environment (rl-robotics) and either setup script can run first.
+# do. Everything is pinned so a fresh setup reproduces the versions the notebooks were verified on.
 #
 # Omitted on purpose:
 #   sample-factory  - 2.1.1 needs numpy<2 and gymnasium<1, older releases need the unmaintained gym
@@ -18,12 +17,12 @@
 
 gymnasium==1.2.3
 stable-baselines3[extra]==2.9.0
-opencv-python==5.0.0.93   # a stable-baselines3[extra] dependency, pinned to match the workshop environment;
+opencv-python==5.0.0.93   # a stable-baselines3[extra] dependency, pinned so its version is known;
                           # the notebooks render with Pillow and need nothing from it
 pygame-ce==2.5.8
 wandb==0.30.0
 ax-platform==1.3.1    # Ax 1.3 deprecates AxClient (used by the HPO notebook) and announces its removal in 1.4.0; stay on 1.3.x
-tensorboard==2.20.0   # pulled in by stable-baselines3[extra]; pinned to the workshop's version so neither setup downgrades the other
+tensorboard==2.20.0   # pulled in by stable-baselines3[extra] with no upper bound of its own; pinned so a fresh setup is reproducible
 matplotlib==3.10.8
 jupyterlab==4.5.6
 ipykernel

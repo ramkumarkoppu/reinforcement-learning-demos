@@ -16,7 +16,7 @@ A discussion of the pendulum solution can be found here %%%LINK%%%.
 
 The notebooks in this fork run in a native Windows conda environment instead of Colab: their `pip install` cells are disabled, they select the **Python (RL)** Jupyter kernel, episodes play live in the notebook instead of being recorded to mp4 files with OpenCV, and `rl-demo-pendulum-ax-hpo.ipynb` carries two small edits for Ax 1.3 (the removed `ax.utils.tutorials.cnn_utils` import is gone, and `create_experiment()` takes `objectives={...: ObjectiveProperties(minimize=False)}` instead of the removed `objective_name=` and `minimize=` keywords). For Colab, use the upstream repository [ShawnHymel/reinforcement-learning-demos](https://github.com/ShawnHymel/reinforcement-learning-demos).
 
-The environment is the same `rl-robotics` environment that [workshop-reinforcement-learning-for-robotics](https://github.com/ramkumarkoppu/workshop-reinforcement-learning-for-robotics) uses, with identical package pins, so either repository's setup script can run first and each only adds what is missing. This repository's copy is self-contained.
+The setup is self-contained: `scripts\windows\` holds everything it needs, every package is pinned, and re-running it is safe because an existing environment is reused and only what differs is installed.
 
 Prerequisites: [Anaconda](https://www.anaconda.com/download) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 

@@ -8,9 +8,9 @@
     Weights & Biases, Ax, JupyterLab), registers the Jupyter kernel "rl-robotics" (shown as
     "Python (RL)") that the notebooks select, and runs verify-native.py.
 
-    The environment is the same one that workshop-reinforcement-learning-for-robotics creates, with
-    identical pins, so the two setup scripts can be run in either order: each only adds what is
-    missing. Safe to re-run: an existing environment is reused and pip only changes what differs.
+    Everything the setup needs lives in this folder. Safe to re-run: an existing environment is
+    reused and pip only changes what differs, so pointing it at an environment that already has
+    some of these packages just adds the rest.
 
     CPU only is deliberate: the policies in these notebooks are tiny and the simulations run on the
     CPU, so a GPU adds transfer overhead rather than speed. Pass -Gpu for the CUDA build anyway.
