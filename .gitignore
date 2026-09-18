@@ -5,5 +5,3 @@ models/
 *.pyc
 # Written next to the notebooks when they run locally
 *.zip
-wandb/*
-!wandb/run-20231011_201648-q219vpnp/

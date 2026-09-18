@@ -1,16 +1,12 @@
-# Python packages for running these notebooks natively on Windows (CPU only). PyTorch is NOT
-# listed here: setup-native.ps1 installs torch==2.11.0+cpu from the PyTorch CPU index (or the CUDA
-# build when run with -Gpu).
+# Python packages for running this notebook natively on Windows. PyTorch is NOT listed here:
+# setup-native.ps1 installs torch==2.11.0+cpu from the PyTorch CPU index, or torch==2.11.0+cu128
+# from the matching CUDA index when run with -Gpu.
 #
-# The notebooks originally pinned gymnasium 0.28.1, stable-baselines3 2.0/2.1, ax-platform 0.3.4
-# and wandb 0.15.12. None of those work on Python 3.12 with numpy 2 (the SB3 and wandb pins do not
-# install; ax-platform 0.3.4 installs but cannot be imported), so these are the newest versions that
-# do. Everything is pinned so a fresh setup reproduces the versions the notebooks were verified on.
+# The notebook originally pinned gymnasium 0.28.1 and stable-baselines3 2.0/2.1, neither of which
+# works on Python 3.12 with numpy 2 (the SB3 pin does not install), so these are the newest versions
+# that do. Everything is pinned so a fresh setup reproduces the versions it was verified on.
 #
 # Omitted on purpose:
-#   sample-factory  - 2.1.1 needs numpy<2 and gymnasium<1, older releases need the unmaintained gym
-#                     package, and the project has no Windows support, so sample-factory/ does not
-#                     run here.
 #   pygame          - gymnasium's classic-control renderer needs *a* pygame. stable-baselines3[extra]
 #                     brings pygame-ce, which installs the same files, so never install pygame or
 #                     gymnasium[classic-control] on top of it.
@@ -20,8 +16,6 @@ stable-baselines3[extra]==2.9.0
 opencv-python==5.0.0.93   # a stable-baselines3[extra] dependency, pinned so its version is known;
                           # the notebooks render with Pillow and need nothing from it
 pygame-ce==2.5.8
-wandb==0.30.0
-ax-platform==1.3.1    # Ax 1.3 deprecates AxClient (used by the HPO notebook) and announces its removal in 1.4.0; stay on 1.3.x
 tensorboard==2.20.0   # pulled in by stable-baselines3[extra] with no upper bound of its own; pinned so a fresh setup is reproducible
 matplotlib==3.10.8
 jupyterlab==4.5.6
